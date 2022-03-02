@@ -1,18 +1,16 @@
 import React from "react";
 
-const DarkModeButton = ({ toggleDark, isDark }) => {
+const DarkModeButton = ({ toggleDark, dark }) => {
   return (
     <button
       className="top-5 right-5 w-10 h-5 md:w-12 md:h-6 rounded-2xl bg-white flex items-center transition duration-300 focus:outline-none shadow"
-      onClick={() => toggleDark(isDark => !isDark)}
+      onClick={() => (dark === "dark" ? toggleDark("") : toggleDark("dark"))}
     >
       <div
         id="switch-toggle"
-        className={`w-6 h-6 md:w-7 md:h-7 relative rounded-full transition duration-500 transform p-1 text-white ${
-          isDark ? "bg-gray-700 translate-x-full" : "bg-yellow-500 -translate-x-2"
-        }`}
+        className="w-6 h-6 md:w-7 md:h-7 rounded-full transition duration-500 transform p-1 text-white dark:bg-gray-700 translate-x-full bg-yellow-500 dark:-translate-x-2"
       >
-        {isDark ? (
+        {dark === "dark" ? (
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

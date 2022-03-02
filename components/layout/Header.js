@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import DarkModeButton from "./darkModeButton";
 
-const Header = ({ toggleDark }) => {
+const Header = ({ toggleDark, dark }) => {
   const router = useRouter();
   const [path, updatePath] = useState(router.route);
 
@@ -15,9 +15,6 @@ const Header = ({ toggleDark }) => {
     }
   }, [router.route, path]);
 
-  const font = "text-gray-700 hover:text-black py-5 px-3";
-  const section = "flex items-center justify-between space-x-4";
-
   const [mobileMenuState, setMobileMenuState] = useState("-translate-y-full");
   const mobileMenuRef = useRef(null);
 
@@ -26,11 +23,13 @@ const Header = ({ toggleDark }) => {
     if (mobileMenuState !== "-translate-y-full") setMobileMenuState("-translate-y-full");
   };
 
+  const font = "text-gray-700 dark:text-white hover:text-black py-5 px-3 md:text-xl";
+  const section = "flex items-center justify-between space-x-5";
   return (
     <div>
       <nav className="bg-gray-100 dark:bg-black h-16 fixed inset-x-0 z-10">
         {/* Content Width */}
-        <div className="max-w-6xl mx-auto px-4">
+        <div className="max-w-6xl lg:max-w-7xl mx-auto px-4">
           {/* Actual Content & Content Layout */}
           <div className="flex justify-between">
             {/* Section 1 - Logo */}
@@ -39,24 +38,24 @@ const Header = ({ toggleDark }) => {
                 <a className={font}>Journal</a>
               </Link>
             </div>
-            {/* Section 2 - Login & Signup */}
+            {/* Section 2 - Login, Signup, & Dark Mode */}
             <div className={`hidden md:flex ${section}`}>
               <Link href="/login">
                 <a className={font}>Login</a>
               </Link>
               <Link href="#">
-                <a className="bg-yellow-400 hover:bg-yellow-300 rounded py-2 px-3 shadow transition ease-in-out duration-200">
+                <a className="bg-yellow-400 hover:bg-yellow-300 md:text-lg rounded py-2 px-3 shadow transition ease-in-out duration-200">
                   Signup
                 </a>
               </Link>
-              {/* <DarkModeButton toggleDark={toggleDark} /> */}
+              <DarkModeButton toggleDark={toggleDark} dark={dark} />
             </div>
             {/* Mobile Button (Hidden on Desktop) */}
             <div className="md:hidden flex items-center">
               <button onClick={toggleMobileMenu}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
+                  className="h-6 w-6 dark:text-gray-50"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -75,8 +74,8 @@ const Header = ({ toggleDark }) => {
       </nav>
 
       {/* Mobile Menu */}
-      <nav
-        className={`md:hidden bg-gray-100 px-2 pb-4 mt-16 flex flex-col transform duration-300 ${mobileMenuState} fixed inset-x-0`}
+      <div
+        className={`md:hidden bg-gray-100 dark:bg-black px-2 pb-4 mt-16 flex flex-col transform duration-300 ${mobileMenuState} fixed inset-x-0`}
         ref={mobileMenuRef}
       >
         <Link href="/login">
@@ -87,7 +86,10 @@ const Header = ({ toggleDark }) => {
             Signup
           </a>
         </Link>
-      </nav>
+        <div className="flex justify-end pt-4 pr-3">
+          <DarkModeButton toggleDark={toggleDark} dark={dark} />
+        </div>
+      </div>
     </div>
   );
 };
