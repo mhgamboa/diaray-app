@@ -1,10 +1,10 @@
 import React from "react";
 
-const DarkModeButton = ({ toggleDarkMode, isDark }) => {
+const DarkModeButton = ({ toggleDark, isDark }) => {
   return (
     <button
-      className="absolute top-5 right-5 w-10 h-5 md:w-12 md:h-6 rounded-2xl bg-white flex items-center transition duration-300 focus:outline-none shadow"
-      onClick={() => toggleDarkMode(isDark => !isDark)}
+      className="top-5 right-5 w-10 h-5 md:w-12 md:h-6 rounded-2xl bg-white flex items-center transition duration-300 focus:outline-none shadow"
+      onClick={() => toggleDark(isDark => !isDark)}
     >
       <div
         id="switch-toggle"

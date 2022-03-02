@@ -1,13 +1,24 @@
 // import Image from "next/image";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { useState, useRef } from "react";
+import { useRouter } from "next/router";
+import DarkModeButton from "./darkModeButton";
 
-const Header = () => {
+const Header = ({ toggleDark }) => {
+  const router = useRouter();
+  const [path, updatePath] = useState(router.route);
+
+  useEffect(() => {
+    if (path !== router.route) {
+      setMobileMenuState("-translate-y-full");
+      updatePath(router.route);
+    }
+  }, [router.route, path]);
+
   const font = "text-gray-700 hover:text-black py-5 px-3";
   const section = "flex items-center justify-between space-x-4";
 
   const [mobileMenuState, setMobileMenuState] = useState("-translate-y-full");
-
   const mobileMenuRef = useRef(null);
 
   const toggleMobileMenu = e => {
@@ -17,7 +28,7 @@ const Header = () => {
 
   return (
     <div>
-      <nav className="bg-gray-100 h-16 fixed inset-x-0 z-10">
+      <nav className="bg-gray-100 dark:bg-black h-16 fixed inset-x-0 z-10">
         {/* Content Width */}
         <div className="max-w-6xl mx-auto px-4">
           {/* Actual Content & Content Layout */}
@@ -38,6 +49,7 @@ const Header = () => {
                   Signup
                 </a>
               </Link>
+              {/* <DarkModeButton toggleDark={toggleDark} /> */}
             </div>
             {/* Mobile Button (Hidden on Desktop) */}
             <div className="md:hidden flex items-center">
@@ -60,10 +72,10 @@ const Header = () => {
             </div>
           </div>
         </div>
-
-        {/* Mobile Menu */}
       </nav>
-      <div
+
+      {/* Mobile Menu */}
+      <nav
         className={`md:hidden bg-gray-100 px-2 pb-4 mt-16 flex flex-col transform duration-300 ${mobileMenuState} fixed inset-x-0`}
         ref={mobileMenuRef}
       >
@@ -75,7 +87,7 @@ const Header = () => {
             Signup
           </a>
         </Link>
-      </div>
+      </nav>
     </div>
   );
 };
