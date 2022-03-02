@@ -1,26 +1,15 @@
 // import Image from "next/image";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import DarkModeButton from "./darkModeButton";
 
 const Header = ({ toggleDark, dark }) => {
-  const router = useRouter();
-  const [path, updatePath] = useState(router.route);
-
-  useEffect(() => {
-    if (path !== router.route) {
-      setMobileMenuState("-translate-y-full");
-      updatePath(router.route);
-    }
-  }, [router.route, path]);
-
   const [mobileMenuState, setMobileMenuState] = useState("-translate-y-full");
   const mobileMenuRef = useRef(null);
 
   const toggleMobileMenu = e => {
-    if (mobileMenuState === "-translate-y-full") setMobileMenuState("");
-    if (mobileMenuState !== "-translate-y-full") setMobileMenuState("-translate-y-full");
+    e.preventDefault;
+    mobileMenuState === "" ? setMobileMenuState("-translate-y-full") : setMobileMenuState("");
   };
 
   const font = "text-gray-700 dark:text-white hover:text-black py-5 px-3 md:text-xl";
@@ -35,7 +24,9 @@ const Header = ({ toggleDark, dark }) => {
             {/* Section 1 - Logo */}
             <div className={section}>
               <Link href="/">
-                <a className={font}>Journal</a>
+                <a className={font} onClick={e => setMobileMenuState("-translate-y-full")}>
+                  Journal App
+                </a>
               </Link>
             </div>
             {/* Section 2 - Login, Signup, & Dark Mode */}
@@ -79,10 +70,15 @@ const Header = ({ toggleDark, dark }) => {
         ref={mobileMenuRef}
       >
         <Link href="/login">
-          <a className={`${font} text-center `}>Login</a>
+          <a className={`${font} text-center`} onClick={toggleMobileMenu}>
+            Login
+          </a>
         </Link>
         <Link href="#">
-          <a className="bg-yellow-400 hover:bg-yellow-300 text-center rounded py-2 px-3 shadow transition duration-200">
+          <a
+            className="bg-yellow-400 hover:bg-yellow-300 text-center rounded py-2 px-3 shadow transition duration-200"
+            onClick={toggleMobileMenu}
+          >
             Signup
           </a>
         </Link>
