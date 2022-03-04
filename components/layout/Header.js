@@ -15,7 +15,7 @@ const Header = ({ toggleDark, dark }) => {
   const font = "text-gray-700 dark:text-white hover:text-black py-5 px-3 md:text-xl";
   const section = "flex items-center justify-between space-x-5";
   return (
-    <div>
+    <header>
       <nav className="bg-gray-100 dark:bg-black h-16 fixed inset-x-0 z-10">
         {/* Content Width */}
         <div className="max-w-6xl lg:max-w-7xl mx-auto px-4">
@@ -86,7 +86,7 @@ const Header = ({ toggleDark, dark }) => {
           <DarkModeButton toggleDark={toggleDark} dark={dark} />
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 
