@@ -9,7 +9,7 @@ const Login = () => {
         <meta name="description" content="Login Page for journal app" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="bg-red-900 w-11/12 h-80">content</div>
+      content
     </>
   );
 };
