@@ -1,9 +1,14 @@
-// import Image from "next/image";
 import { useState, useRef } from "react";
 import Link from "next/link";
 import DarkModeButton from "./darkModeButton";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const Header = ({ toggleDark, dark }) => {
+  const { data: session, status } = useSession();
+
+  console.log(session);
+  console.log(status);
+
   const [mobileMenuState, setMobileMenuState] = useState("-translate-y-full");
   const mobileMenuRef = useRef(null);
 
@@ -31,9 +36,34 @@ const Header = ({ toggleDark, dark }) => {
             </div>
             {/* Section 2 - Login, Signup, & Dark Mode */}
             <div className={`hidden md:flex ${section}`}>
-              <Link href="/login">
-                <a className={font}>Login</a>
-              </Link>
+              {session && status === "authenticated" ? (
+                <Link href="/api/auth/signout">
+                  <a
+                    className={font}
+                    onClick={e => {
+                      e.preventDefault;
+                      signOut();
+                    }}
+                  >
+                    Logout
+                  </a>
+                </Link>
+              ) : (
+                status === "unauthenticated" && (
+                  <Link href="/api/auth/signin">
+                    <a
+                      className={font}
+                      onClick={e => {
+                        e.preventDefault;
+                        signIn();
+                      }}
+                    >
+                      Login
+                    </a>
+                  </Link>
+                )
+              )}
+
               <Link href="#">
                 <a className="bg-yellow-400 hover:bg-yellow-300 md:text-lg rounded py-2 px-3 shadow transition ease-in-out duration-200">
                   Signup
