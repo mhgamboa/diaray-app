@@ -6,9 +6,6 @@ import { signIn, signOut, useSession } from "next-auth/react";
 const Header = ({ toggleDark, dark }) => {
   const { data: session, status } = useSession();
 
-  console.log(session);
-  console.log(status);
-
   const [mobileMenuState, setMobileMenuState] = useState("-translate-y-full");
   const mobileMenuRef = useRef(null);
 
@@ -36,6 +33,11 @@ const Header = ({ toggleDark, dark }) => {
             </div>
             {/* Section 2 - Login, Signup, & Dark Mode */}
             <div className={`hidden md:flex ${section}`}>
+              {session && status === "authenticated" && (
+                <Link href="/home">
+                  <a className={font}>Home</a>
+                </Link>
+              )}
               {session && status === "authenticated" ? (
                 <Link href="/api/auth/signout">
                   <a
@@ -63,12 +65,13 @@ const Header = ({ toggleDark, dark }) => {
                   </Link>
                 )
               )}
-
-              <Link href="#">
-                <a className="bg-yellow-400 hover:bg-yellow-300 md:text-lg rounded py-2 px-3 shadow transition ease-in-out duration-200">
-                  Signup
-                </a>
-              </Link>
+              {status === "unauthenticated" && (
+                <Link href="#">
+                  <a className="bg-yellow-400 hover:bg-yellow-300 md:text-lg rounded py-2 px-3 shadow transition ease-in-out duration-200">
+                    Signup
+                  </a>
+                </Link>
+              )}
               <DarkModeButton toggleDark={toggleDark} dark={dark} />
             </div>
             {/* Mobile Button (Hidden on Desktop) */}

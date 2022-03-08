@@ -9,7 +9,7 @@ const Layout = ({ children }) => {
   return (
     <div className={dark}>
       <Header toggleDark={toggleDark} dark={dark} />
-      <div className="pt-16">{children}</div>
+      <div className="pt-16 min-h-screen min-w-screen flex">{children}</div>
       <Footer />
     </div>
   );
