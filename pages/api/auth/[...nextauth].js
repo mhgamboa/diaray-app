@@ -54,7 +54,7 @@ export default NextAuth({
     // }),
   ],
   session: {
-    strategy: "jwt",
+    strategy: "database",
     maxAge: 60 * 60 * 24 * 7 * 1, //sec * min * hour * day = 1 week
   },
 });
