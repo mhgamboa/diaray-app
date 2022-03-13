@@ -14,7 +14,7 @@ export default function Home() {
   }, [session, router]);
 
   return (
-    <div className="flex flex-col w-full items-center space-y-52 pt-5 bg-red-900">
+    <div className="flex flex-col w-full items-center justify-around pt-5 bg-red-900">
       <div>
         <h1>Calendar to select journal entries</h1>
       </div>
